@@ -1,0 +1,12 @@
+{
+  "name": "jsjson",
+  "version": "0.1.0",
+  "description": "A JSON parser implemented in JavaScript",
+  "main": "dist/index.js",
+  "author": "",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "typescript": "^3.5.2"
+  }
+}
