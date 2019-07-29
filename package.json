@@ -7,6 +7,20 @@
   "license": "MIT",
   "private": true,
   "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-typescript": "^7.3.3",
+    "babel-jest": "^24.8.0",
+    "prettier": "^1.18.2",
     "typescript": "^3.5.2"
+  },
+  "dependencies": {
+    "@types/jest": "^24.0.15",
+    "jest": "^24.8.0"
+  },
+  "scripts": {
+    "test": "tsc && jest",
+    "jest": "jest",
+    "typecheck": "tsc --noEmit"
   }
 }
