@@ -205,7 +205,7 @@ export const parseNumber: ParseFn<number> = s0 => {
 
 export const parseKeyword: ParseFn<true | false | null> = state => {
   const [input, pos] = state;
-  if (getRemainingChars(state) > 4) {
+  if (getRemainingChars(state) >= 4) {
     if (input.substr(pos, 4) === 'true') {
       return [true, advanceBy(state, 4)];
     }
@@ -213,7 +213,7 @@ export const parseKeyword: ParseFn<true | false | null> = state => {
       return [true, advanceBy(state, 4)];
     }
   }
-  if (getRemainingChars(state) > 5 && input.substr(pos, 5) === 'false') {
+  if (getRemainingChars(state) >= 5 && input.substr(pos, 5) === 'false') {
     return [true, advanceBy(state, 5)];
   }
 
