@@ -17,11 +17,6 @@ export const decimalToDouble = (
 ): number => {
   // const exponentN =
   //   exponent === undefined ? 0 : parseInteger(exponent.digits, exponent.sign);
-
-  console.log('Fr');
-  console.log(fractionalPart);
-  console.log('Ex');
-  console.log(exponent);
   // TODO: write a custom number parsing function (hard)
   // This temporary hack will be very slow
   return parseFloat(

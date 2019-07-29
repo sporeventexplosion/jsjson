@@ -60,6 +60,9 @@ export const parseString: ParseFn<string> = s0 => {
 
     const init = getcc(state);
     state = next(state);
+    if (init < CharCode.Space) {
+      return throwParseError(state, Errors.UnexpectedCharacter);
+    }
     if (init === CharCode.DoubleQuote) {
       return [result, state];
     }
@@ -218,7 +221,7 @@ export const parseKeyword: ParseFn<true | false | null> = state => {
 };
 
 export const keyValuesToObject = (keyValues: Array<[string, any]>): object => {
-  const ret: {[k: string]: any} = {};
+  const ret: { [k: string]: any } = {};
   for (const [k, v] of keyValues) {
     ret[k] = v;
   }
@@ -232,13 +235,15 @@ export const parseObject: ParseFn<object> = s0 => {
   let first = true;
 
   while (true) {
-    state = skipWhitespace(state);
     if (isEof(state)) {
       return throwParseError(state, Errors.UnexpectedEof);
     }
 
     if (first) {
       state = skipWhitespace(state);
+      if (isEof(state)) {
+        return throwParseError(state, Errors.UnexpectedEof);
+      }
     }
     const init = getcc(state);
     if (init === CharCode.RBrace) {
@@ -248,12 +253,16 @@ export const parseObject: ParseFn<object> = s0 => {
       first = false;
     } else if (init === CharCode.Comma) {
       state = next(state);
+      state = skipWhitespace(state);
     } else {
       return throwParseError(state, Errors.UnexpectedCharacter);
     }
 
     if (isEof(state)) {
       return throwParseError(state, Errors.UnexpectedEof);
+    }
+    if (getcc(state) !== CharCode.DoubleQuote) {
+      return throwParseError(state, Errors.UnexpectedCharacter);
     }
 
     let key;
@@ -274,7 +283,7 @@ export const parseObject: ParseFn<object> = s0 => {
   }
 };
 
-export const parseArray: ParseFn<any[]> = (s0) => {
+export const parseArray: ParseFn<any[]> = s0 => {
   const ret: any[] = [];
   let first = true;
   let state = next(s0);
