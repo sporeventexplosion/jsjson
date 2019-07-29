@@ -210,11 +210,11 @@ export const parseKeyword: ParseFn<true | false | null> = state => {
       return [true, advanceBy(state, 4)];
     }
     if (input.substr(pos, 4) === 'null') {
-      return [true, advanceBy(state, 4)];
+      return [null, advanceBy(state, 4)];
     }
   }
   if (getRemainingChars(state) >= 5 && input.substr(pos, 5) === 'false') {
-    return [true, advanceBy(state, 5)];
+    return [false, advanceBy(state, 5)];
   }
 
   return throwParseError(state, Errors.UnexpectedCharacter);

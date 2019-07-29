@@ -34,10 +34,10 @@ export const hexDigitToNumber = (cc: number) => {
     return cc - CharCode.Zero;
   }
   if (cc >= CharCode.UcaseA && cc <= CharCode.UcaseF) {
-    return 10 + CharCode.UcaseA - cc;
+    return 10 + cc - CharCode.UcaseA;
   }
   if (cc >= CharCode.LcaseA && cc <= CharCode.LcaseF) {
-    return 10 + CharCode.LcaseA - cc;
+    return 10 + cc - CharCode.LcaseA;
   }
   throw new TypeError('Not a hexadecimal digit');
 };

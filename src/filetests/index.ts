@@ -1,6 +1,8 @@
 import { readdir, readFile } from 'fs';
 import { promisify } from 'util';
 import { join as joinPaths } from 'path';
+import assert from 'assert';
+
 import chalk from 'chalk';
 
 import { parse } from '..';
@@ -45,10 +47,17 @@ const testFile = async (filename: string): Promise<TestResult> => {
   const expected = getExpectedResult(filename);
 
   let valid = true;
+  let parsed;
+  let nativeParsed;
   try {
-    parse(contents);
+    parsed = parse(contents);
+    nativeParsed = JSON.parse(contents);
   } catch (err) {
     valid = false;
+  }
+
+  if (valid) {
+    assert.deepStrictEqual(parsed, nativeParsed);
   }
 
   // always pass for indeterminate
