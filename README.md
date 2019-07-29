@@ -1,4 +1,4 @@
-# jsonjs
+# jsjson
 
 A JSON parser implemented in JavaScript.
 
